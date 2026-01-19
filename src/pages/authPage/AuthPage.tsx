@@ -1,8 +1,8 @@
-import Form from "../../componenst/form/Form";
+import SingInForm from "../../componenst/RegistrationForm/SingInForm";
 
 const AuthPage = () => {
     return (<div className="container">
-        <Form/>
+        <SingInForm />
     </div>)
 }
 
