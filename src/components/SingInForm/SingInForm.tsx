@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { singInSchema, SingInValues } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import "./styles.scss";
 
 const SingInForm = () => {
 
@@ -15,26 +16,26 @@ const SingInForm = () => {
         console.log("form data:", data);
     };
 
-    return (<>
-        <h3>Вход</h3>
+    return (<div className="form-container">
+        <h3 className="title">Вход</h3>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-            <label>
-                <span>Email</span>
-                <input type="email" {...register("email")} />
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+            <label className="input-label">
+                <input className="input" type="email" {...register("email")} />
+                <span className="input-title">Email</span>
             </label>
 
-            <label>
-                <span>Пароль</span>
-                <input type="password" {...register("password")} />
+            <label className="input-label">
+                <input className="input" type="password" {...register("password")} />
+                <span className="input-title">Password</span>
             </label>
 
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit" disabled={isSubmitting} className="button">
                 Войти
             </button>
         </form>
 
-    </>)
+    </div>)
 }
 
 export default SingInForm;

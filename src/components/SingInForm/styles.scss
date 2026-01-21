@@ -1,0 +1,64 @@
+@use "../../var" as v;
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 40px 20px;
+  border-radius: v.$main-rounded;
+  background: #fff;
+  box-shadow: v.$box-shadow;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.input-label {
+  position: relative;
+}
+
+.input {
+  padding: 8px;
+  width: 300px;
+  border-radius: v.$input-rounded;
+  border: 1px solid v.$border-color;
+  transition: border-color .3s ease-in-out;
+  &:focus {
+    border-color: v.$color_input_focused;
+  }
+  &:focus + .input-title {
+    font-size: 8px;
+    color: v.$color_text_black;
+    transform: translate(-8px, -28px);
+  }
+}
+
+.input-title {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  font-size: 14px;
+  transform: translateY(-50%);
+  color: v.$input-placeholder-color;
+  transition: color v.$transition, transform v.$transition;
+}
+
+.button {
+  padding: 10px 40px;
+  font-size: 14px;
+  color: v.$color_text_white;
+  background-color: v.$primary_color;
+  border-radius: v.$input-rounded;
+  border: 1px solid transparent;
+  cursor: pointer;
+}

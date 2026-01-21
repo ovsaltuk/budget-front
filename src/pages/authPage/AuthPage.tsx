@@ -1,7 +1,8 @@
-import SingInForm from "../../componenst/RegistrationForm/SingInForm";
+import SingInForm from "../../components/SingInForm/SingInForm";
+import "./styles.scss";
 
 const AuthPage = () => {
-    return (<div className="container">
+    return (<div className="auth-page">
         <SingInForm />
     </div>)
 }
