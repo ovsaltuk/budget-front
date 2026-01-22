@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { singInSchema, SingInValues } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./styles.scss";
+import { InputField } from "../common/InputField/InputField";
 
 const SingInForm = () => {
 
@@ -20,15 +21,9 @@ const SingInForm = () => {
         <h3 className="title">Вход</h3>
 
         <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <label className="input-label">
-                <input className="input" type="email" {...register("email")} />
-                <span className="input-title">Email</span>
-            </label>
 
-            <label className="input-label">
-                <input className="input" type="password" {...register("password")} />
-                <span className="input-title">Password</span>
-            </label>
+            <InputField register={register} name="email" label="Email" type="email" error={errors.email?.message}/>
+            <InputField register={register} name="password" label="Password" type="password" error={errors.password?.message}/>
 
             <button type="submit" disabled={isSubmitting} className="button">
                 Войти

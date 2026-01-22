@@ -1,0 +1,40 @@
+@use "../../../var.scss" as v;
+
+.input-label {
+  position: relative;
+}
+
+.input {
+  padding: 8px;
+  width: 300px;
+  border-radius: v.$input-rounded;
+  border: 1px solid v.$border-color;
+  transition: border-color .3s ease-in-out;
+  &:focus {
+    border-color: v.$color_input_focused;
+  }
+  &:focus + .input-title,
+  &:not(:placeholder-shown) + .input-title {
+    font-size: 8px;
+    color: v.$color_text_black;
+    transform: translate(-8px, -28px);
+  }
+}
+
+.input-title {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  font-size: 14px;
+  transform: translateY(-50%);
+  color: v.$input-placeholder-color;
+  transition: color v.$transition, transform v.$transition;
+}
+
+.input-error {
+    position: absolute;
+    top: 100%;
+    left: 8px;
+    font-size: 8px;
+    color: v.$color_text_error;
+}
