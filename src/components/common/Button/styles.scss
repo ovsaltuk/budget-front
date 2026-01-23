@@ -1,0 +1,11 @@
+@use "../../../var" as v;
+
+.button {
+  padding: 10px 40px;
+  font-size: 14px;
+  color: v.$color_text_white;
+  background-color: v.$primary_color;
+  border-radius: v.$input-rounded;
+  border: 1px solid transparent;
+  cursor: pointer;
+}

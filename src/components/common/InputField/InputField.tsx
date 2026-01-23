@@ -3,11 +3,11 @@ import "./styles.scss";
 import { HTMLInputTypeAttribute } from "react";
 
 interface IInputFieldProps<TFieldValues extends FieldValues = FieldValues> {
-    name: Path<TFieldValues>;
-    register: UseFormRegister<TFieldValues>;
-    type: HTMLInputTypeAttribute; 
-    label?: string; 
-    error?: string;
+    name: Path<TFieldValues>,
+    register: UseFormRegister<TFieldValues>,
+    type: HTMLInputTypeAttribute,
+    label?: string,
+    error?: string,
 }
 
 export const InputField = <TFieldValues extends FieldValues = FieldValues>({
