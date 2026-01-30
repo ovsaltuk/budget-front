@@ -3,6 +3,7 @@ import { Button } from "../common/Button/Button"
 import { InputField } from "../common/InputField/InputField"
 import { registrationSchema, RegistrationValues } from "./schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { userApi } from "../../api/userApi"
 
 
 export const RegistrationForm = () => {
@@ -19,11 +20,11 @@ export const RegistrationForm = () => {
     return (<div className="form-container">
         <h3 className="title">Регистрация</h3>
 
-        <form onSubmit={handleSubmit(()=>{})} className="form">
+        <form onSubmit={handleSubmit(({email, password})=>{ userApi.createUser({name: "testuser", username: "testuser", password})})} className="form">
             <InputField register={register} name="email" label="Email" type="email" error={errors.email?.message} />
             <InputField register={register} name="password" label="Password" type="password" error={errors.password?.message} />
-            <InputField register={register} name="confirmPassword" label="Password" type="password" error={errors.password?.message} />
-            <Button text="Войти" disabled={isSubmitting} type="submit" />
+            <InputField register={register} name="confirmPassword" label="Confirm password" type="password" error={errors.password?.message} />
+            <Button text="Зарегестрироваться" disabled={isSubmitting} type="submit" />
         </form>
     </div>)
 }
