@@ -20,7 +20,7 @@ export const InputField = <TFieldValues extends FieldValues = FieldValues>({
     return (
         <label className="input-label">
             <input 
-                className="input" 
+                className={`input ${error && "error"}`}
                 type={type} 
                 placeholder=" "
                 {...register(name)} 
