@@ -8,7 +8,7 @@ import { ICreateUserRequest } from "../../types/IUser"
 
 
 export const RegistrationForm = () => {
-    const { register, handleSubmit, setError, clearErrors, formState: { errors, isSubmitting } } = useForm<RegistrationValues>({
+    const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<RegistrationValues>({
         resolver: zodResolver(registrationSchema),
         defaultValues: {
             email: "",
