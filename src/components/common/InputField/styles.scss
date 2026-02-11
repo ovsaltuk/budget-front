@@ -5,7 +5,7 @@
 }
 
 .input {
-  padding: 8px;
+  padding: 12px 8px;
   width: 300px;
   border-radius: v.$input-rounded;
   border: 1px solid v.$border-color;
@@ -17,7 +17,7 @@
   &:not(:placeholder-shown) + .input-title {
     font-size: 10px;
     color: v.$color_text_black;
-    transform: translate(-8px, -28px);
+    transform: translate(-8px, -36px);
   }
 
   &.error {

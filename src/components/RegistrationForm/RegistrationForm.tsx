@@ -6,8 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { userApi } from "../../api/userApi"
 import { ICreateUserRequest } from "../../types/IUser"
 
+interface IRegistrationFormProps {
+    toggleForm?: () => void;
+}
 
-export const RegistrationForm = () => {
+
+export const RegistrationForm = ({toggleForm}: IRegistrationFormProps) => {
     const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<RegistrationValues>({
         resolver: zodResolver(registrationSchema),
         defaultValues: {
@@ -35,7 +39,10 @@ export const RegistrationForm = () => {
             <InputField register={register} name="email" label="Email" type="email" error={errors.email?.message} />
             <InputField register={register} name="password" label="Password" type="password" error={errors.password?.message} />
             <InputField register={register} name="confirmPassword" label="Confirm password" type="password" error={errors.confirmPassword?.message} />
-            <Button text="Зарегистрироваться" disabled={isSubmitting} type="submit" />
+            <div className="button-container">
+                <Button text="Зарегистрироваться" disabled={isSubmitting} type="submit" />
+                <span onClick={toggleForm}>Вход</span>
+            </div>
         </form>
     </div>)
 }

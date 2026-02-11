@@ -4,11 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import "./styles.scss";
 import { InputField } from "../common/InputField/InputField";
 import { Button } from "../common/Button/Button";
-import { userApi } from "../../api/userApi";
+import { useAuthStore } from "../../stores/useAuthStore/useAuthStore";
 
-const SingInForm = () => {
+interface ISingInFormProps {
+    toggleForm?: () => void;
+}
 
-    const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<SingInValues>({
+const SingInForm = ({toggleForm}: ISingInFormProps) => {
+
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SingInValues>({
         resolver: zodResolver(singInSchema),
         defaultValues: {
             email: "",
@@ -16,24 +20,19 @@ const SingInForm = () => {
         }
     })
 
+    const login = useAuthStore((state) => state.login);
+    const user = useAuthStore((state) => state.user);
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+    console.log("User:", user);
+    console.log("isAuthenticated:", isAuthenticated);
+
     const onSubmit = async (data: SingInValues) => {
-        try {
-            const response = await userApi.login(data);
-            const { token, user } = response.data; // Извлекаем token и user
-
-            // ✅ Шаг 2: Сохраняем токен
-            localStorage.setItem("token", token);
-
-            console.log("✅ Токен сохранен:", token);
-            console.log("✅ Пользователь:", user);
-
-            // TODO: Переход на dashboard (позже)
-            alert("Успешный вход! Токен сохранен.");
-        } catch (error: any) {
-            console.error("Ошибка логина:", error.response?.data?.error);
-            setError("root", {
-                message: error.response?.data?.error || "Ошибка входа"
-            });
+        const success = await login({ email: data.email, password: data.password });
+        if (success) {
+            console.log("✅ Логин через Zustand!");
+        } else {
+            alert('ошибка авторизации');
         }
     };
 
@@ -43,9 +42,11 @@ const SingInForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="form">
             <InputField register={register} name="email" label="Email" type="email" error={errors.email?.message} />
             <InputField register={register} name="password" label="Password" type="password" error={errors.password?.message} />
-            <Button text="Войти" disabled={isSubmitting} type="submit" />
+            <div className="button-container">
+                <Button text="Вход" disabled={isSubmitting} type="submit" />
+                <span onClick={toggleForm}>Регистрация</span>
+            </div>
         </form>
-
     </div>)
 }
 
