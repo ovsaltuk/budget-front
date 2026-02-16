@@ -21,11 +21,6 @@ const SingInForm = ({toggleForm}: ISingInFormProps) => {
     })
 
     const login = useAuthStore((state) => state.login);
-    const user = useAuthStore((state) => state.user);
-    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-    console.log("User:", user);
-    console.log("isAuthenticated:", isAuthenticated);
 
     const onSubmit = async (data: SingInValues) => {
         const success = await login({ email: data.email, password: data.password });

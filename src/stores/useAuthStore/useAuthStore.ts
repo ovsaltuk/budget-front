@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { ILoginRequest, IUser } from "../../types/IUser";
 import { jwtDecode } from "jwt-decode";
-import { decode } from "punycode";
 import { userApi } from "../../api/userApi";
 
 interface IJwtPayload {
@@ -17,6 +16,7 @@ interface IAuthState {
   login: (data: ILoginRequest) => Promise<boolean>;
   logout: () => void;
   checkAuth: () => void;
+  getAllUsers: () => Promise<{ data: IUser[] }>;
 }
 
 export const useAuthStore = create<IAuthState>((set, get) => ({
@@ -62,7 +62,12 @@ export const useAuthStore = create<IAuthState>((set, get) => ({
     }
   },
   logout: () => {
-    localStorage.removeItem('token');
-    set({user: null, isAuthenticated: false});
+    localStorage.removeItem("token");
+    set({ user: null, isAuthenticated: false });
+  },
+  getAllUsers: async () => {
+    const response = await userApi.getAllUsers();
+    console.log(response);
+    return response;
   },
 }));

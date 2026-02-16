@@ -1,5 +1,10 @@
 import axios from "axios";
-import { ICreateUserRequest, ILoginRequest, ILoginResponse, IUser } from "../types/IUser";
+import {
+  ICreateUserRequest,
+  ILoginRequest,
+  ILoginResponse,
+  IUser,
+} from "../types/IUser";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -28,12 +33,13 @@ api.interceptors.response.use(
       window.location.href = "/login"; // или используй navigate
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const userApi = {
-  createUser: (data: ICreateUserRequest ): Promise<{data: IUser}> =>
+  createUser: (data: ICreateUserRequest): Promise<{ data: IUser }> =>
     api.post("/api/users/register", data),
-  login: (data: ILoginRequest): Promise<{data: ILoginResponse}> => 
-    api.post("/api/users/login", data)
-  };
+  login: (data: ILoginRequest): Promise<{ data: ILoginResponse }> =>
+    api.post("/api/users/login", data),
+  getAllUsers: (): Promise<{ data: IUser[] }> => api.get("/api/users/"),
+};
