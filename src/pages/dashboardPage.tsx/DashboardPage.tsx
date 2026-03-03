@@ -1,11 +1,57 @@
-import { Button } from "../../components/common/Button/Button";
-import { useAuthStore } from "../../stores/useAuthStore/useAuthStore";
-import "./styles.scss";
+import { useQuery } from '@tanstack/react-query';
+import { transactionsApi } from '../../api/transactionsApi';
+import { ITransaction } from '../../types/ITransaction';
+import { Transaction } from '../../components/Transaction/Transaction';
 
 export const DashboardPage = () => {
-    const authStore = useAuthStore();
-    return <div className="dashboard-page">
-        <Button text={"logout"} onClick={authStore.logout}/>
-        <Button text={"all users"} onClick={authStore.getAllUsers}/>
+  const { 
+    data: transactions = [], 
+    isLoading, 
+    error, 
+    refetch 
+  } = useQuery({
+    queryKey: ['transactions'],        // уникальный ключ кэша
+    queryFn: async () => {
+      const response = await transactionsApi.getTransactions();
+      return response.data;            // массив транзакций из API
+    },
+  });
+
+  // Состояния загрузки и ошибок
+  if (isLoading) return <div>⏳ Загрузка транзакций...</div>;
+  
+  if (error) 
+    return (
+      <div>
+        ❌ Ошибка: {(error as Error).message}
+        <button 
+          onClick={() => refetch()} 
+          
+        >
+          🔄 Повторить
+        </button>
+      </div>
+    );
+
+  return (
+    <div>
+        <form></form>
+      <div>
+        <button 
+          onClick={() => refetch()} 
+        >
+          🔄 Обновить ({transactions.length} шт)
+        </button>
+      </div>
+      <div>
+        {transactions.length === 0 ? (
+          <p>Нет транзакций. Создайте первую!</p>
+        ) : (
+          transactions.map((transaction: ITransaction) => (
+            <Transaction transactionData={transaction}/>
+          ))
+        )}
+      </div>
     </div>
-}
+  );
+};
