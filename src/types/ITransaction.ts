@@ -13,10 +13,10 @@ export interface ITransaction {
     userId: number,
     category: string,
     subcategory: string,
-    date: Date,
+    date: string,
     created_at: Date,
     updated_at: Date,
     comment: string,
-    amount: number,
+    amount: string,
     type: ETransactionType
 }

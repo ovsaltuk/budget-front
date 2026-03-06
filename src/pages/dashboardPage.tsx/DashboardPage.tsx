@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { transactionsApi } from '../../api/transactionsApi';
 import { ITransaction } from '../../types/ITransaction';
 import { Transaction } from '../../components/Transaction/Transaction';
+import { TransactionForm } from '../../components/TransactionForm/TransactionFrom';
 
 export const DashboardPage = () => {
   const { 
@@ -35,7 +36,7 @@ export const DashboardPage = () => {
 
   return (
     <div>
-        <form></form>
+        <TransactionForm />
       <div>
         <button 
           onClick={() => refetch()} 
@@ -48,7 +49,7 @@ export const DashboardPage = () => {
           <p>Нет транзакций. Создайте первую!</p>
         ) : (
           transactions.map((transaction: ITransaction) => (
-            <Transaction transactionData={transaction}/>
+            <Transaction transactionData={transaction} key={transaction.id}/>
           ))
         )}
       </div>
