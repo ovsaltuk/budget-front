@@ -3,7 +3,6 @@ import { transactionsApi } from '../../api/transactionsApi';
 import { ITransaction } from '../../types/ITransaction';
 import { Transaction } from '../../components/Transaction/Transaction';
 import { TransactionForm } from '../../components/TransactionForm/TransactionFrom';
-import { MentionTextarea, users } from '../../components/test/MentionTextarea';
 
 export const DashboardPage = () => {
   const { 
@@ -54,7 +53,6 @@ export const DashboardPage = () => {
           ))
         )}
       </div>
-      <MentionTextarea users={users} />
     </div>
     
   );
