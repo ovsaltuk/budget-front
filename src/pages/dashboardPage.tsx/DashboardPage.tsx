@@ -5,11 +5,11 @@ import { Transaction } from '../../components/Transaction/Transaction';
 import { TransactionForm } from '../../components/TransactionForm/TransactionFrom';
 
 export const DashboardPage = () => {
-  const { 
-    data: transactions = [], 
-    isLoading, 
-    error, 
-    refetch 
+  const {
+    data: transactions = [],
+    isLoading,
+    error,
+    refetch
   } = useQuery({
     queryKey: ['transactions'],        // уникальный ключ кэша
     queryFn: async () => {
@@ -20,14 +20,14 @@ export const DashboardPage = () => {
 
   // Состояния загрузки и ошибок
   if (isLoading) return <div>⏳ Загрузка транзакций...</div>;
-  
-  if (error) 
+
+  if (error)
     return (
       <div>
         ❌ Ошибка: {(error as Error).message}
-        <button 
-          onClick={() => refetch()} 
-          
+        <button
+          onClick={() => refetch()}
+
         >
           🔄 Повторить
         </button>
@@ -36,24 +36,17 @@ export const DashboardPage = () => {
 
   return (
     <div>
-        <TransactionForm />
-      <div>
-        <button 
-          onClick={() => refetch()} 
-        >
-          🔄 Обновить ({transactions.length} шт)
-        </button>
-      </div>
+      <TransactionForm />
       <div>
         {transactions.length === 0 ? (
           <p>Нет транзакций. Создайте первую!</p>
         ) : (
           transactions.map((transaction: ITransaction) => (
-            <Transaction transactionData={transaction} key={transaction.id}/>
+            <Transaction transactionData={transaction} key={transaction.id} />
           ))
         )}
       </div>
     </div>
-    
+
   );
 };

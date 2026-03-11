@@ -6,7 +6,8 @@ export const transactionsApi = {
     api.get("api/transactions"),
   createTransaction: async (transactionData: Partial<ITransaction>): Promise<{ data: ITransaction }> =>
     api.post("api/transactions/create", transactionData),
-  createTransactions: () => {},
-  deleteTransactions: () => {},
+  deleteTransaction: (id: number): Promise<{ message: string, deleted: ITransaction }> => {
+    return api.delete(`api/transactions/${id}`);
+  },
   editTransaction: () => {},
 };
