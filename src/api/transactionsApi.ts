@@ -9,5 +9,12 @@ export const transactionsApi = {
   deleteTransaction: (id: number): Promise<{ message: string, deleted: ITransaction }> => {
     return api.delete(`api/transactions/${id}`);
   },
+  uploadExcelTransactions: (formData: FormData): Promise<{ message: string, imported: number }> => {
+    return api.post("api/transactions/upload-excel", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  },
   editTransaction: () => {},
 };
